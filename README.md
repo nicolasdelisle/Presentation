@@ -1,78 +1,49 @@
+## 🧱 AWS VPC 
 
-# ☁️ AWS Mini-Presentation: EC2, AMI, EBS & Load Balancing
-
-This document provides a quick and clear overview of four essential AWS services used to deploy, store, and scale applications in the cloud.
-
----
-
-## 1. 🖥️ EC2 (Elastic Compute Cloud)
-
-EC2 is Amazon’s IaaS (Infrastructure As A Service) offering that allows you to rent virtual machines to run applications.
-
-**🔹 Key Features:**
-- Scalable compute power in the cloud  
-- Supports a variety of instance types (optimized for memory, CPU, etc.)  
-- Fully configurable: OS, storage, networking, permissions  
-- Integrates with key pairs, security groups, IAM roles, and EBS volumes  
-
-✅ Example Use Case:
-Spin up a web server, application server, or test environment.
+A Virtual Private Cloud (VPC) is a logically isolated network in AWS, similar to a traditional data center. Here are the 5 most essential components ("slices") that make up a typical VPC:
 
 ---
 
-## 2. 🧱 Amazon Machine Image (AMI)
-
-An Amazon Machine Image (AMI) is a pre-configured template that contains the operating system, application server, and installed applications used to launch EC2 instances.
-
-**🔹 Key Points:**
-- AMI = Snapshot of a configured EC2 instance  
-- Used to quickly launch new EC2 instances with identical setup  
-  Includes:
-  - Operating System (e.g., Amazon Linux, Ubuntu)  
-  - Pre-installed software (e.g., web servers, security tools)  
-  - Custom files and configurations  
-
-**✅ Example Use Case:**  
-After installing Apache, PHP (Hypertext Processor), and MySQL on an EC2 instance, create a custom AMI so future servers are ready in minutes.
+### 1. **Subnets**
+- Sub-divide your VPC's IP range into smaller networks
+- Types:
+  - **Public Subnet**: Can access the internet (via IGW)
+  - **Private Subnet**: No direct internet access
+  - **Isolated Subnet**: No inbound/outbound internet access
+- Example:  
+  `10.0.1.0/24` for public resources  
+  `10.0.2.0/24` for private resources
 
 ---
 
-## 3. 💾 EBS (Elastic Block Store)
-
-EBS is persistent block storage for EC2 instances — like a virtual hard drive.
-
-**🔹 Key Features:**
-- Persistent: Data remains intact after instance stop/restart  
-- Can be attached/detached from EC2 instances  
-- Supports backups via snapshots, which can also be used to create AMIs  
-- Configurable for performance (e.g., general purpose SSD, provisioned IOPS (Input/Output Operations Per Second))  
-
-**✅ Example Use Case:**  
-Store application logs or databases on an EBS volume, back it up regularly using snapshots, and restore as needed.
+### 2. **Route Tables**
+- Define how traffic is directed within the VPC
+- Each subnet must be associated with one route table
+- Routes examples:
+  - `0.0.0.0/0 → igw-xxxxxxxx` (Internet Gateway)
+  - `10.0.2.0/24 → local` (Internal routing)
 
 ---
 
-## 4. ⚖️ Load Balancing (ELB)
+### 3. **Internet Gateway / NAT Gateway**
+- **Internet Gateway (IGW)**: Allows public subnets to access the internet
+- **NAT Gateway**: Enables outbound internet access from private subnets
+- IGW is attached to the VPC; NAT is placed in a public subnet
 
-Elastic Load Balancing (ELB) automatically distributes incoming application traffic across multiple EC2 instances.
+---
 
-**🔹 Types of Load Balancers:**
-- Application Load Balancer (ALB) – Layer 7 (HTTP/HTTPS), supports path-based routing  
-- Network Load Balancer (NLB) – Layer 4 (TCP/UDP), optimized for high performance  
-- Gateway Load Balancer – Used for integrating third-party virtual appliances (e.g., firewalls)  
+### 4. **Security Groups & Network ACLs**
+- **Security Groups**: Act as virtual firewalls at the instance level (stateful)
+- **NACLs (Network Access Control Lists)**: Control traffic at the subnet level (stateless)
+- Security Group example: Allow port 22 (SSH) from `0.0.0.0/0`
 
-**🔹 Benefits:**
-- Ensures high availability and fault tolerance  
-- Helps in auto-scaling and traffic distribution  
-- Can handle SSL termination and manage sessions  (An SSL load balancer acts as the server‑side SSL endpoint for connections with clients, meaning that it performs the decryption of requests and encryption of responses that the web or application server would otherwise have to do.)
+---
 
-**🧩 Basic Architecture:**
-          [ Internet Users ]
-                  |
-        [ Elastic Load Balancer ]
-              /            \
-       [ EC2 Instance ]  [ EC2 Instance ]
+### 5. **VPC Peering / VPN / Direct Connect**
+- **VPC Peering**: Private communication between two VPCs
+- **VPN Gateway**: Secure tunnel between on-prem and AWS
+- **Direct Connect**: Dedicated fiber connection between AWS and on-prem
 
+---
 
-**✅ Example Use Case:**  
-Deploy a web application behind an ALB that routes traffic to healthy EC2 instances across multiple Availability Zones.
+📌 _These slices together form a secure and scalable cloud network similar to a traditional hardware infrastructure._
