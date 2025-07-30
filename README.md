@@ -27,8 +27,6 @@ Route tables define how network traffic is routed within your VPC. Every subnet 
 - Public subnets typically have a route to the Internet Gateway (`0.0.0.0/0 → igw-xxxxxx`).
 - Private subnets often route traffic through a NAT Gateway.
 
-📘 *Think of it like:*  
-A GPS for your network traffic—deciding where packets go depending on their destination.
 
 ---
 
@@ -59,8 +57,6 @@ AWS provides two main types of firewalls:
   - **Stateless**: you must define both inbound and outbound rules
   - Useful for blocking specific IP ranges or controlling low-level traffic
 
-📘 *Analogy:*  
-Security Groups are like guards at the **door of each room**, while NACLs are guards at the **hallway entrances**.
 
 ---
 
@@ -81,11 +77,7 @@ AWS provides multiple ways to connect your VPC to other networks:
   - Provides a **dedicated fiber connection** between your data center and AWS
   - Offers lower latency, more consistent network performance than VPN
 
-📘 *Use case:*  
-Connect your corporate office network to AWS securely and privately, without sending data over the public internet.
 
 ---
 
-
-📌 _These five components work together to build secure, scalable, and highly available network architectures in AWS—comparable to traditional hardware infrastructure but more flexible and programmable._
 
