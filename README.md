@@ -1,6 +1,6 @@
 ## 🧱 AWS VPC 
 
-Amazon Virtual Private Cloud (VPC) allows you to provision a logically isolated section of the AWS cloud where you can launch AWS resources in a virtual network. These five components work together to build secure, scalable, and highly available network architectures in AWS—comparable to traditional hardware infrastructure but more flexible and programmable.
+Amazon Virtual Private Cloud (VPC) allows you to provision a logically isolated section of the AWS cloud where you can launch AWS resources in a virtual network. Vpc provide secure, scalable, and highly available network architectures in AWS—comparable to traditional hardware infrastructure but more flexible and programmable.
 
 ---
 
